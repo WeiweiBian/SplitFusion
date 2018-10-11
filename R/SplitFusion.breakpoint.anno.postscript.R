@@ -36,8 +36,8 @@ head(ii)
     lr1$cdna_R = suppressWarnings(as.numeric(lr1$cdna_R))
     head(lr1)
     (n.lr1 = nrow(lr1))
-    lr1$exonn_L = suppressWarnings(as.numeric(sub('exon','',lr1$exon_L)))
-    lr1$exonn_R = suppressWarnings(as.numeric(sub('exon','',lr1$exon_R)))
+    lr1$exonn_L = suppressWarnings(as.numeric(sub('exon|intron','',lr1$exon_L)))
+    lr1$exonn_R = suppressWarnings(as.numeric(sub('exon|intron','',lr1$exon_R)))
 
 ##====2: filter targeted site (non-ligation end) being non-targets
 if (n.lr1 >0){
@@ -73,7 +73,7 @@ lr2$cdna_R0 = lr2$cdna_R
 if (file.exists('mid.anno2')){
     colnamesM = c('annoPos', 'readID', 'chr_M', 'start_M', 'end_M', 'gene_M', 'geneStrand_M', 'inEx_M', 'functiontype_M', 'nm_M', 'exon_M', 'cdna_M')
     mid = read.table('mid.anno2', sep=' ', header=F, fill=T, stringsAsFactors=F, col.names=colnamesM)
-	mid$exonn_M = suppressWarnings(as.numeric(sub('exon', '', mid$exon_M)))
+	mid$exonn_M = suppressWarnings(as.numeric(sub('exon|intron', '', mid$exon_M)))
 	head(mid)
 
 	lmr = merge(lr2, mid, by="readID")
@@ -181,7 +181,7 @@ if (n.lr3 >0){
 
 	## intra-gene
 	lr3$intragene = ifelse(lr3$gene_L == lr3$gene_R, 1, 0)
-	lr3$exon = substr(lr3$exon_L,1,4)
+	lr3$exon = substr(lr3$exon_L,1,4) ### NULL?
 	lr3$exonD = 0
 	lr3$exonD = ifelse(lr3$gene_L == lr3$gene_R, lr3$exonn_R - lr3$exonn_L, lr3$exonD)
 	lr3$gec_L = paste(lr3$gene_L, ' ', lr3$exon_L, ' c.', lr3$cdna_L, ' (', lr3$nm_L, ')', sep='')

@@ -25,15 +25,12 @@ subii=$( pwd | sed "s:.*/::")
 
 ##==== 1.1. get reads with SA from both Read 1 and 2
 
-	if [ ! -s $bam_path/$subii.consolidated.bam ]; then
-		$bwa mem -T 20 -5a -t 5 $hgRef $bam_path/$subii.R1.fq $bam_path/$subii.R2.fq | grep 'SA:' > _sa.sam
-	else
-		$samtools view -@ $cpuBWA $bam_path/$subii.consolidated.bam | grep 'SA:' > _sa.sam
-	fi
-
 #	$samtools view -@ $cpuBWA $bam_path/$subii.consolidated.bam | grep 'SA:' > _sa.sam
-	$samtools view -@ $cpuBWA -T $hgRef -bS _sa.sam > _sa.bam
-	$bedtools bamtobed -cigar -i _sa.bam > _sa.bed0
+#	$samtools view -@ $cpuBWA -T $hgRef -bS _sa.sam > _sa.bam
+
+#	$bedtools bamtobed -cigar -i _sa.bam > _sa.bed0
+	$bedtools bamtobed -cigar -i $bam_path/$subii.consolidated.bam > _sa.bed0
+
 	## bedtools uses 0-base, change to 1-base:
 	# awk '{start = $2+1; $2=start; print}' _sa.bed0 | tr ' ' '\t' > _sa.bed
 	# add compatbility to processing bed with '/1' '/2' appended to readID from Bedtools
@@ -41,7 +38,8 @@ subii=$( pwd | sed "s:.*/::")
 
 ##==== 1.2. get read length
 	# By default, number and order of reads in files _sa.sam, _sa.bam and _sa.bed0 are identical. So, paste.
-        awk '{n=length($10); print $1,n}' _sa.sam > _sa.len
+#        awk '{n=length($10); print $1,n}' _sa.sam > _sa.len
+	$samtools view -@ $cpuBWA $bam_path/$subii.consolidated.bam | awk '{n=length($10); print $1,n}' > _sa.len
 
 ##==== 2. Join bed and read length, and keep the longest
     	paste _sa.len _sa.bed | tr ' ' '\t' | cut -f2- > _sa.len.bed

@@ -17,7 +17,7 @@
 
 # enter your working directory
 #. ../run.info.sh  ###Modified by Baifeng###
-runSplitFusion <- function (step = c("breakpoint-consolidate", "breakpoint-filter", "breakpoint-anno", "breakpoint-anno-post"), runInfo, output, sample.id){
+runSplitFusion <- function (step = c("bam-consolidate", "breakpoint-consolidate", "breakpoint-filter", "breakpoint-anno", "breakpoint-anno-post"), runInfo, output, sample.id){
 	library(SplitFusion)
 	options(width=204)
 	source(runInfo)
@@ -27,20 +27,25 @@ runSplitFusion <- function (step = c("breakpoint-consolidate", "breakpoint-filte
 	dir.create(paste0(output,"/",sample.id), recursive = TRUE)
 	setwd(paste0(output,"/",sample.id))
 	SplitFusionPath <- system.file(package='SplitFusion')
-	##==== 1: consolidated.bam to breakpoint candidates ====
+	####==== 1: consolidated raw bam ====
+	if ( "bam-consolidate" %in% step & !(file.exists(paste0(bam_path, "/", sample.id, ".consolidated.bam")) & file.size(paste0(bam_path, "/", sample.id, ".consolidated.bam")) !=0)) {
+		system(paste0("bash ",SplitFusionPath,"/exec/SplitFusion.consolidated-bam.sh ",runInfo, " SA"))
+	}
+
+	##==== 2: consolidated.bam to breakpoint candidates ====
 	if ( "breakpoint-consolidate" %in% step & !(file.exists("_breakpoint.noFilter3") & file.size("_breakpoint.noFilter3") !=0)) {
 
 		system(paste0("bash ",SplitFusionPath,"/exec/SplitFusion.consolidated-breakpoint.sh ",runInfo))  ###Modified by Baifeng###
 
 	}
 
-	##==== 2: filters ====
+	##==== 3: filters ====
 	if ( "breakpoint-filter" %in% step & !(file.exists("breakpoint.candidates") & file.size("breakpoint.candidates") !=0)) {
 
 		system(paste0("bash ",SplitFusionPath,"/exec/SplitFusion.breakpoint-filter.sh ",runInfo))
 	}
 
-	##==== 3: Annotate breakpoint gene, exon, cDNA position
+	##==== 4: Annotate breakpoint gene, exon, cDNA position
 	#if [ ! -f anno.left.right ]; then  ###Baifeng###
 	#if [ ! -s mid.anno2 ]; then  ###Baifeng###
 	#	bash $SplitFusionPath/scripts/SplitFusion.breakpoint-anno.sh $runInfo  ###Modified by Baifeng###
@@ -52,7 +57,7 @@ runSplitFusion <- function (step = c("breakpoint-consolidate", "breakpoint-filte
 
 
 
-	##==== 4: further processing (in-frame status determination, etc)
+	##==== 5: further processing (in-frame status determination, etc)
 	if ( "breakpoint-anno-post" %in% step) {
 
 #		system(paste0("Rscript ",SplitFusionPath,"/R/SplitFusion.breakpoint-anno.postscript.R ",runInfo))  ###Modified by Baifeng###
