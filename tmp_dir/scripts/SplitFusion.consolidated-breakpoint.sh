@@ -13,7 +13,7 @@ subii=$( pwd | sed "s:.*/::")
         head -n 1 ../../iiFreq.txt > _head.1
         gawk '{for (i=1; i<=NF; i++) {if ($i ~ /Panel/) {print $i,i}}}' _head.1 | sed 's/.* /PanelField=/' > _t.sh
         . _t.sh
-    	panel=$(grep $subii ../../iiFreq.txt | cut -f $PanelField | sed 's: .*::' | sed 's:[vV][0-9]::')
+    	panel=$(grep $subii ../../iiFreq.txt | cut -f $PanelField | sed 's: .*::' | sed 's:v.*::')
 	
 	if [[ $panel == HBV ]]; then
         	refGenome=hbv_hg19.fasta
@@ -30,6 +30,25 @@ subii=$( pwd | sed "s:.*/::")
 	# awk '{start = $2+1; $2=start; print}' _sa.bed0 | tr ' ' '\t' > _sa.bed
 	# add compatbility to processing bed with '/1' '/2' appended to readID from Bedtools
 	awk '{start = $2+1; $2=start; print}' _sa.bed0 | tr ' ' '\t' > _sa.bed 
+
+	# re-format read ID if not already in the umi:C.P format
+	goodformat=$(head -n 1 _sa.bed | cut -f 4 | grep umi: | sed 's:.*umi:umi:' | grep C | grep P | wc -l)
+	if [ $goodformat -eq 0 ]; then
+		mv _sa.bed _sa.bed1
+		sort -k4,4 _sa.bed1 > _sa.bed2
+		sed 's/::umi/:umi/' _sa.bed2 | sed 's/:umi:/\tumi\t/' |\
+		gawk '{OFS="\t"; if ($4 != preID){
+					if ($8 == "+"){posC = 100000001 + $2} else {posC = 100000001 + $3};
+                                	umi="C"$1"P"posC"-"$6
+                        	} else {umi=preUmi};
+                        preUmi=umi;
+                        preID=$4;
+			$6=umi;
+			print $0 > "_sa.bed3"
+                }' 2>/dev/null
+		cat _sa.bed3
+		sed 's/\tumi\t/:umi:/' _sa.bed3 > _sa.bed
+	fi
 
 ##==== 1.2. get read length
 	# By default, number and order of reads in files _sa.sam, _sa.bam and _sa.bed0 are identical. So, paste.
@@ -200,7 +219,7 @@ subii=$( pwd | sed "s:.*/::")
 
 	awk '{if ($1==pre1){
 		diff = $5 - pre5;
-		if ($4 != pre4 || diff > 100000){
+		if ($4 != pre4 || diff > 100000 || diff < -100000){
 			if (pre8=="+"){bkp1=pre4"_"pre6} else {bkp1=pre4"_"pre5};
 			if ($8=="+"){bkp2=$4"_"$5} else {bkp2=$4"_"$6}
                    };
@@ -216,12 +235,9 @@ subii=$( pwd | sed "s:.*/::")
 	sort -k1,1b _sa.mid.bkp > _sa.mid.bkps
 	join -a1 _breakpoint.noFilter2 _sa.mid.bkps > _breakpoint.noFilter3
 
-	awk '{if (NF==23) {
-		$22=$23; $23=""; print > "breakpoint.noFilter.w.mid"
-		} else {
-		print > "breakpoint.noFilter.wo.mid"
-		}
-	}' _breakpoint.noFilter3 
+	awk '{if (NF==23) {$22=$23; $23=""}; print}' _breakpoint.noFilter3 > _breakpoint.noFilter.bkp.corrected
 
+	join _breakpoint.noFilter.bkp.corrected _mid.id > breakpoint.noFilter.w.mid
+	join -v 1 _breakpoint.noFilter.bkp.corrected _mid.id > breakpoint.noFilter.wo.mid
 
 # DONE breakpoint candidate
