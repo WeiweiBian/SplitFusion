@@ -39,6 +39,33 @@ head(ii)
     lr1$exonn_L = suppressWarnings(as.numeric(sub('exon|intron','',lr1$exon_L)))
     lr1$exonn_R = suppressWarnings(as.numeric(sub('exon|intron','',lr1$exon_R)))
 
+    ###add transcript orientation
+    orien <- data.frame(fread(paste0(Panel_path,'/ENSEMBL.orientation.txt')))
+    rownames(orien) <- orien[,"ID"]
+    nm_L <- lr1[,"nm_L"] 
+    lr1[,"geneStrand_L"] <- orien[nm_L,"Orientation"]
+    nm_R <- lr1[,"nm_R"]
+    lr1[,"geneStrand_R"] <- orien[nm_R,"Orientation"]
+
+#    lr1.rev = subset(lr1, (strand_L != geneStrand_L & strand_R != geneStrand_R)
+#                       | (is.na(geneStrand_L) & strand_R != geneStrand_R)
+#                       | (is.na(geneStrand_R) & strand_L != geneStrand_L))
+#    lr1.nor = subset(lr1, !((strand_L != geneStrand_L & strand_R != geneStrand_R)
+#                       | (is.na(geneStrand_L) & strand_R != geneStrand_R)
+#                       | (is.na(geneStrand_R) & strand_L != geneStrand_L)))
+
+#    if (nrow(lr1.rev)>0){
+#        lr1.rev.r = lr1.rev
+#        tmp.n = gsub('_L', '_Tmp000R', names(lr1.rev))
+#        tmp.n2 = gsub('_R', '_Tmp000L', tmp.n)
+#        tmp.n3 = gsub('_Tmp000', '_', tmp.n2)
+#        names(lr1.rev.r) = tmp.n3
+ 
+#        lr1 = rbind(lr1.nor, lr1.rev.r)
+#   } else {lr1 = lr1}
+
+
+
 ##====2: filter targeted site (non-ligation end) being non-targets
 if (n.lr1 >0){
 	# extract ligation end
@@ -155,9 +182,10 @@ if (file.exists('mid.anno2')){
 #lr2c = rbind(sense, anti2, nosense)
 	#nrow(lr2b); nrow(lr2c)
 
-# reverse strand for Read2
+# reverse strand for sense Read2 
 r1 = lr2b[!(grepl("/2", lr2b$readID)),]
 r2 = lr2b[grepl("/2", lr2b$readID),]
+
 
 ## switch L/R for Read2
 if (nrow(r2)>0){
@@ -170,7 +198,10 @@ if (nrow(r2)>0){
     lr3 = rbind(r1, r2r)
 } else {lr3 = lr2b}
 
+
+
 n.lr3 = nrow(lr3); n.lr3
+
 
 #=========================================================
 #=========================================================
@@ -178,6 +209,29 @@ if (n.lr3 >0){
 	## add the 6 base back to cDNA position
 	lr3$cdna_L = lr3$cdna_L0 + 6
 	lr3$cdna_R = lr3$cdna_R0 - 6
+
+	lr3.rev = subset(lr3, ((((strand_L != geneStrand_L & strand_R != geneStrand_R)
+                       | (is.na(geneStrand_L) & strand_R != geneStrand_R)
+                       | (is.na(geneStrand_R) & strand_L != geneStrand_L)) & grepl("/1",readID))
+		       | (((strand_L == geneStrand_L & strand_R == geneStrand_R)
+                       | (is.na(geneStrand_L) & strand_R == geneStrand_R)
+                       | (is.na(geneStrand_R) & strand_L == geneStrand_L)) & grepl("/2",readID))))
+        lr3.nor = subset(lr3, !(((((strand_L != geneStrand_L & strand_R != geneStrand_R)
+                       | (is.na(geneStrand_L) & strand_R != geneStrand_R)
+                       | (is.na(geneStrand_R) & strand_L != geneStrand_L)) & grepl("/1",readID))
+                       | (((strand_L == geneStrand_L & strand_R == geneStrand_R)
+                       | (is.na(geneStrand_L) & strand_R == geneStrand_R)
+                       | (is.na(geneStrand_R) & strand_L == geneStrand_L)) & grepl("/2",readID)))))
+
+    if (nrow(lr3.rev)>0){
+        lr3.rev.r = lr3.rev
+        tmp.n = gsub('_L', '_Tmp000R', names(lr3.rev))
+        tmp.n2 = gsub('_R', '_Tmp000L', tmp.n)
+        tmp.n3 = gsub('_Tmp000', '_', tmp.n2)
+        names(lr3.rev.r) = tmp.n3
+
+        lr3 = rbind(lr3.nor, lr3.rev.r)
+   } else {lr3 = lr3}	
 
 	## intra-gene
 	lr3$intragene = ifelse(lr3$gene_L == lr3$gene_R, 1, 0)
@@ -197,6 +251,8 @@ if (n.lr3 >0){
 	##======================
 	    lr3$frameD = (lr3$cdna_R0 %% 3 - (lr3$cdna_L0 + abs(lr3$overlap)) %% 3) %% 3
 	    lr3$frame = ifelse(lr3$frameD ==1, 'in-frame', 'out-frame')
+	#     lr3$frameD = (lr3$cdna_R0 + lr3$cdna_L0 - lr3$overlap) %% 3
+         #    lr3$frame = ifelse(lr3$frameD == 0, 'in-frame', 'out-frame')
 	    lr3$frame[is.na(lr3$frame)] = 'N.A.'
 		#head(lr3)
 		## expect mostly in-frame or _NA_. Otherwise, might need inspection
@@ -332,13 +388,14 @@ if (n.lr4>0){
 
 				## get fa
 				if (file.exists(paste("../../fq.demux/", subii, ".R2.fq", sep=''))){
-					system(paste("grep -f tmp.readid2 -A1 ../../fq.demux/", subii, ".R2.fq | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
+#					system(paste("grep -f tmp.readid2 -A1 ../../fq.demux/", subii, ".R2.fq | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
 				} else if (file.exists(paste("../../fq.demux/", subii, ".R2.fq.gz", sep=''))){
-				system(paste("zcat ../../fq.demux/", subii, ".R2.fq.gz | grep -f tmp.readid2 -A1 | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
+#				system(paste("zcat ../../fq.demux/", subii, ".R2.fq.gz | grep -f tmp.readid2 -A1 | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
 				} else if (file.exists(paste(bam_path, subii, ".consolidated.bam", sep=''))){
 #					system(paste(REPPATH, "/samtools/bin/samtools view ../../bam/", subii
 					system(paste(samtools, " view ", bam_path, subii   ###Modified by Baifeng###
-							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,10 | sed 's/^/>/' | tr '\t' '\n' > ", subii, '.', gei, ".txt", sep=''))
+#							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,10 | sed 's/^/>/' | tr '\t' '\n' > ", subii, '.', gei, ".txt", sep=''))
+							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,2,10 > ", subii, '.', gei, ".txt", sep=''))
 				}
 			system('rm tmp.readid*')
 			}

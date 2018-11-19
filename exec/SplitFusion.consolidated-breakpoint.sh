@@ -14,18 +14,8 @@ subii=$( pwd | sed "s:.*/::")
         head -n 1 $sampleInfo > _head.1
         gawk '{for (i=1; i<=NF; i++) {if ($i ~ /Panel/) {print $i,i}}}' _head.1 | sed 's/.* /PanelField=/' > _t.sh
         . _t.sh
-<<<<<<< HEAD:tmp_dir/scripts/SplitFusion.consolidated-breakpoint.sh
-    	panel=$(grep $subii ../../iiFreq.txt | cut -f $PanelField | sed 's: .*::' | sed 's:v.*::')
-=======
     	panel=$(grep $subii $sampleInfo | cut -f $PanelField | sed 's: .*::' | sed 's:[vV][0-9]::')
->>>>>>> 43b7bcd19926c8a1dfbc1ab812748a27daa62af6:exec/SplitFusion.consolidated-breakpoint.sh
 	
-	if [[ $panel == HBV ]]; then
-        	refGenome=$hgRef
-		minMQ=0
-	else
-		refGenome=$hgRef
-	fi
 
 ##==== 1.1. get reads with SA from both Read 1 and 2
 
