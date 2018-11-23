@@ -35,10 +35,10 @@ Required software, libraries and data dependency
 - snpEff
 - java
 
-Command line of Installation
-git clone git@github.com:Zheng-NGS-Lab/SplitFusion.git
+## Command line of Installation
+>git clone git@github.com:Zheng-NGS-Lab/SplitFusion.git
 then 
-R CMD INSTALL SplitFusion
+>R CMD INSTALL SplitFusion
 
 The dependency data (e.g. in 'data') should contain:
 
@@ -57,35 +57,37 @@ The above files could be updated periodically as a backend supporting database t
 1.Sample information table:  Sample name (prefixed name in bam file), Cancer type or project name ( not used in script, just for user labeling ), Panel name (prefixed panel name in panel-name.target.genes), cpuBWA number
 
 An example table (table separated) :
-| AP7 | Sample_ID | Panel | cpuBWA |
-| Lib009 | LungFusion | ITFTNA | 2 |
-| Lib010 | LungFusion | ITFTNA | 2 |
+
+
+>| AP7 | Sample_ID | Panel | cpuBWA |
+>| Lib009 | LungFusion | ITFTNA | 2 |
+>| Lib010 | LungFusion | ITFTNA | 2 |
 
 
 2.Config file: you can set the path and parameters of depended tools in this file.
 
 Example  table:
-SplitFusionPath= “/your path/SplitFusion”
-sampleInfo=”/your path/Sample information table file”
-runInfo=”/your path/Config file”
-bam_path=”/your bam file directory/”
-Panel_path=”/your directory of dependency data/”
+>SplitFusionPath= “/your path/SplitFusion”
+>sampleInfo=”/your path/Sample information table file”
+>runInfo=”/your path/Config file”
+>bam_path=”/your bam file directory/”
+>Panel_path=”/your directory of dependency data/”
 
-hgRef=”/your path/Homo_sapiens_assembly19.fasta”
-samtools=”/your path/samtools” Version: 1.9 (using htslib 1.9)
-bedtools=”/your path/bedtools” Version: v2.25.0
-java=”/your path/java” openjdk version "1.8.0_181", OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.16.04.1-b13), OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
-snpEff=”/your path/snpEff.jar”
-R=”/your path/R”
-bwa=”/your path/bwa” Version: bwa-0.7.17
+>hgRef=”/your path/Homo_sapiens_assembly19.fasta”
+>samtools=”/your path/samtools” Version: 1.9 (using htslib 1.9)
+>bedtools=”/your path/bedtools” Version: v2.25.0
+>java=”/your path/java” openjdk version "1.8.0_181", OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.16.04.1-b13), OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
+>snpEff=”/your path/snpEff.jar”
+>R=”/your path/R”
+>bwa=”/your path/bwa” Version: bwa-0.7.17
 
 
-StrVarMinStartSite=2
-maxQueryGap=0
-minMapLength=25
-minExclusive=25
-maxOverlap=9
-minMQ=13
+>StrVarMinStartSite=2
+>maxQueryGap=0
+>minMapLength=25
+>minExclusive=25
+>maxOverlap=9
+>minMQ=13
 
 ## Run
 
