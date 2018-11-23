@@ -62,7 +62,7 @@ An example table (table separated) :
 | Lib010 | LungFusion | ITFTNA | 2 |
 
 
-2. Config file: you can set the path and parameters of depended tools in this file.
+2.Config file: you can set the path and parameters of depended tools in this file.
 
 Example  table:
 SplitFusionPath= “/your path/SplitFusion”
@@ -91,9 +91,9 @@ minMQ=13
 
 R command line:
 
-Library(SplitFusion)
+>Library(SplitFusion)
 
-runSplitFusion(runInfo= inputfile2, output= output directory, sample.id=sample name)
+>runSplitFusion(runInfo= inputfile2, output= output directory, sample.id=sample name)
 
 ## Output
 An example brief output table:
