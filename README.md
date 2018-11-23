@@ -59,11 +59,11 @@ The above files could be updated periodically as a backend supporting database t
 An example table (table separated) :
 
 
->| AP7 | Sample_ID | Panel | cpuBWA |
+>AP7 Sample_ID Panel cpuBWA
 
->| Lib009 | LungFusion | ITFTNA | 2 |
+>Lib009 LungFusion ITFTNA 2
 
->| Lib010 | LungFusion | ITFTNA | 2 |
+>Lib010 LungFusion ITFTNA 2
 
 
 2.Config file: you can set the path and parameters of depended tools in this file.
