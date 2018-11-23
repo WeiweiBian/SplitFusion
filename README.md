@@ -61,6 +61,7 @@ An example table (table separated) :
 | Lib009 | LungFusion | ITFTNA | 2 |
 | Lib010 | LungFusion | ITFTNA | 2 |
 
+
 2. Config file: you can set the path and parameters of depended tools in this file.
 
 Example  table:
@@ -87,8 +88,11 @@ maxOverlap=9
 minMQ=13
 
 ## Run
+
 R command line:
+
 Library(SplitFusion)
+
 runSplitFusion(runInfo= inputfile2, output= output directory, sample.id=sample name)
 
 ## Output
