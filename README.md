@@ -88,7 +88,7 @@ Example  table:
 
 >java=”/your path/java” openjdk version "1.8.0_181", OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.16.04.1-b13), OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
 
->snpEff=”/your path/snpEff.jar”
+>snpEff=”/your path/snpEff.jar” Downloaded from http://snpeff.sourceforge.net/download_donate.html
 
 >R=”/your path/R”
 
