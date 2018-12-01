@@ -89,17 +89,17 @@ Panel_path=”/your directory of dependency data/”
 ### Tools and database
 hgRef=”/your path/Homo_sapiens_assembly19.fasta”
 
-samtools=”/your path/samtools” Version: 1.9 (using htslib 1.9)
+samtools=”/your path/samtools” #Version: 1.9 (using htslib 1.9)
 
-bedtools=”/your path/bedtools” Version: v2.25.0
+bedtools=”/your path/bedtools” #Version: v2.25.0
 
-java=”/your path/java” openjdk version "1.8.0_181", OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.16.04.1-b13), OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
+java=”/your path/java” #openjdk version "1.8.0_181", OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.16.04.1-b13), OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
 
-snpEff=”/your path/snpEff.jar” Downloaded from http://snpeff.sourceforge.net/download_donate.html
+snpEff=”/your path/snpEff.jar” #Downloaded from http://snpeff.sourceforge.net/download_donate.html
 
 R=”/your path/R”
 
-bwa=”/your path/bwa” Version: bwa-0.7.17
+bwa=”/your path/bwa” #Version: bwa-0.7.17
 
 
 ### Parameters of SplitFusion
