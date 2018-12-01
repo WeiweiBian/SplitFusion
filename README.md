@@ -35,10 +35,13 @@ Required software, libraries and data dependency
 - snpEff
 - java
 
+```java
 ## Command line of Installation
+
 >git clone git@github.com:Zheng-NGS-Lab/SplitFusion.git
 
 >R CMD INSTALL SplitFusion
+```
 
 The dependency data (e.g. in 'data') should contain:
 
@@ -107,7 +110,7 @@ Example  table:
 
 >minMQ=13
 
-
+```java
 ## Run
 
 R command line:
@@ -115,6 +118,7 @@ R command line:
 >Library(SplitFusion)
 
 >runSplitFusion(runInfo= inputfile2, output= output directory, sample.id=sample name)
+```
 
 ## Output
 An example brief output table:
@@ -153,5 +157,6 @@ GGGAATTCCCACTTTGGATCCTCCTATGTTGGAATTCCCTCGGAAGAACTTGGTTCTTGGAAAAACTCTAAGATCGGA
 
 ## Visualization
 An visualization of example output fastq for the EML4_exon7---ALK_exon20:
+![image](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/Lib010.EML4_exon7---ALK_exon20.pdf)
 
 
