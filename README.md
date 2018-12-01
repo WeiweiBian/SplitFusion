@@ -72,6 +72,8 @@ An example table (table separated) :
 2.Config file: you can set the path and parameters of depended tools in this file.
 
 Example  table:
+
+```java
 >SplitFusionPath= “/your path/SplitFusion”
 
 >sampleInfo=”/your path/Sample information table file”
@@ -109,10 +111,11 @@ Example  table:
 >maxOverlap=9
 
 >minMQ=13
+```
 
-```java
 ## Run
 
+```java
 R command line:
 
 >Library(SplitFusion)
@@ -157,6 +160,6 @@ GGGAATTCCCACTTTGGATCCTCCTATGTTGGAATTCCCTCGGAAGAACTTGGTTCTTGGAAAAACTCTAAGATCGGA
 
 ## Visualization
 An visualization of example output fastq for the EML4_exon7---ALK_exon20:
-![image](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/Lib010.EML4_exon7---ALK_exon20.pdf)
+![image](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/Lib010.EML4_exon7---ALK_exon20.png)
 
 
