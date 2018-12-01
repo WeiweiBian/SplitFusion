@@ -151,5 +151,7 @@ GGGAATTCCCACTTTGGATCCTCCTATGTTGGAATTCCCTCGGAAGAACTTGGTTCTTGGAAAAACTCTAAGATCGGA
 
 
 
-## Visualization of fastq for the EML4_exon7---ALK_exon20
+## Visualization
+An visualization of example output fastq for the EML4_exon7---ALK_exon20:
+
 
