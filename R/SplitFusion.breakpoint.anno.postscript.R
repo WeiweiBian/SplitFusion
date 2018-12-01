@@ -396,6 +396,7 @@ if (n.lr4>0){
 					system(paste(samtools, " view ", bam_path, subii   ###Modified by Baifeng###
 #							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,10 | sed 's/^/>/' | tr '\t' '\n' > ", subii, '.', gei, ".txt", sep=''))
 							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,2,10 > ", subii, '.', gei, ".txt", sep=''))
+					fq2pdf(seq=paste0(subii,".",gei,".txt"),aln="_sa.SMH4sns",nam=paste0(subii,".",gei))
 				}
 			system('rm tmp.readid*')
 			}
