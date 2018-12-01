@@ -38,9 +38,9 @@ Required software, libraries and data dependency
 ## Command line of Installation
 
 ```java
->git clone git@github.com:Zheng-NGS-Lab/SplitFusion.git
+git clone git@github.com:Zheng-NGS-Lab/SplitFusion.git
 
->R CMD INSTALL SplitFusion
+R CMD INSTALL SplitFusion
 ```
 
 The dependency data (e.g. in 'data') should contain:
@@ -62,11 +62,11 @@ The above files could be updated periodically as a backend supporting database t
 An example table (table separated) :
 
 ```java
->AP7 Sample_ID Panel cpuBWA
+AP7 Sample_ID Panel cpuBWA
 
->Lib009 LungFusion ITFTNA 2
+Lib009 LungFusion ITFTNA 2
 
->Lib010 LungFusion ITFTNA 2
+Lib010 LungFusion ITFTNA 2
 ```
 
 2.Config file: you can set the path and parameters of depended tools in this file.
@@ -74,43 +74,46 @@ An example table (table separated) :
 Example  table:
 
 ```java
->SplitFusionPath= “/your path/SplitFusion”
+### Input file
+SplitFusionPath= “/your path/SplitFusion”
 
->sampleInfo=”/your path/Sample information table file”
+sampleInfo=”/your path/Sample information table file”
 
->runInfo=”/your path/Config file”
+runInfo=”/your path/Config file”
 
->bam_path=”/your bam file directory/”
+bam_path=”/your bam file directory/”
 
->Panel_path=”/your directory of dependency data/”
-
-
->hgRef=”/your path/Homo_sapiens_assembly19.fasta”
-
->samtools=”/your path/samtools” Version: 1.9 (using htslib 1.9)
-
->bedtools=”/your path/bedtools” Version: v2.25.0
-
->java=”/your path/java” openjdk version "1.8.0_181", OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.16.04.1-b13), OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
-
->snpEff=”/your path/snpEff.jar” Downloaded from http://snpeff.sourceforge.net/download_donate.html
-
->R=”/your path/R”
-
->bwa=”/your path/bwa” Version: bwa-0.7.17
+Panel_path=”/your directory of dependency data/”
 
 
->StrVarMinStartSite=2
+### Tools and database
+hgRef=”/your path/Homo_sapiens_assembly19.fasta”
 
->maxQueryGap=0
+samtools=”/your path/samtools” Version: 1.9 (using htslib 1.9)
 
->minMapLength=25
+bedtools=”/your path/bedtools” Version: v2.25.0
 
->minExclusive=25
+java=”/your path/java” openjdk version "1.8.0_181", OpenJDK Runtime Environment (build 1.8.0_181-8u181-b13-1ubuntu0.16.04.1-b13), OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
 
->maxOverlap=9
+snpEff=”/your path/snpEff.jar” Downloaded from http://snpeff.sourceforge.net/download_donate.html
 
->minMQ=13
+R=”/your path/R”
+
+bwa=”/your path/bwa” Version: bwa-0.7.17
+
+
+### Parameters of SplitFusion
+StrVarMinStartSite=2
+
+maxQueryGap=0
+
+minMapLength=25
+
+minExclusive=25
+
+maxOverlap=9
+
+minMQ=13
 ```
 
 ## Run
