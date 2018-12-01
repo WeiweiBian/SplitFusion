@@ -35,9 +35,9 @@ Required software, libraries and data dependency
 - snpEff
 - java
 
-```java
 ## Command line of Installation
 
+```java
 >git clone git@github.com:Zheng-NGS-Lab/SplitFusion.git
 
 >R CMD INSTALL SplitFusion
@@ -61,13 +61,13 @@ The above files could be updated periodically as a backend supporting database t
 
 An example table (table separated) :
 
-
+```java
 >AP7 Sample_ID Panel cpuBWA
 
 >Lib009 LungFusion ITFTNA 2
 
 >Lib010 LungFusion ITFTNA 2
-
+```
 
 2.Config file: you can set the path and parameters of depended tools in this file.
 
