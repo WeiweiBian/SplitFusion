@@ -38,7 +38,7 @@ Required software, libraries and data dependency
 ## Command line of Installation
 
 ```java
-git clone git@github.com:Zheng-NGS-Lab/SplitFusion.git
+git clone https://github.com/Zheng-NGS-Lab/SplitFusion.git
 
 R CMD INSTALL SplitFusion
 ```
