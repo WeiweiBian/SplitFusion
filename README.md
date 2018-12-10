@@ -97,6 +97,8 @@ java=”/your path/java” #openjdk version "1.8.0_181", OpenJDK Runtime Environ
 
 snpEff=”/your path/snpEff.jar” #Downloaded from http://snpeff.sourceforge.net/download_donate.html
 
+snpEff_ref="hg19"   ### Note: annotation result varys with different version of $snpEff_ref, which is better to match the version of hgRef
+
 R=”/your path/R”
 
 bwa=”/your path/bwa” #Version: bwa-0.7.17
