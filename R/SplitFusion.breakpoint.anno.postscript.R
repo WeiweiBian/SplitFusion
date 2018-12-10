@@ -287,7 +287,7 @@ if (n.lr3 >0){
 	lr32 = subset(lr3, (known==1 | (num_start_site >=3 & intragene==0)) & !(ge1ge2 %in% known.filter))
 		nrow(lr3); nrow(lr32)
 
-if (nrow(lr32)>0){
+	if (nrow(lr32)>0){
 		# output for furture research
 		write.table(lr32, paste(subii, '.fusion.list.pre-processing.txt', sep=''), row.names=F, quote=F, sep='\t')
 
@@ -305,7 +305,7 @@ if (nrow(lr32)>0){
 		(n.lr40 = nrow(lr40))
 		(n.lr4 = nrow(lr4))
 		
-if (n.lr4>0){
+		if (n.lr4>0){
 		lr4$AP7 = subii
 		# remove illegal symbol
 		lr4$gec_LR = gsub('\\(', '.', lr4$gec_LR)
@@ -374,38 +374,39 @@ if (n.lr4>0){
 		
 	ex2 = read.table(paste(subii, '.brief.summary', sep=''), sep='\t', stringsAsFactors=F, header=T)
 		(nex = min(10, nrow(ex2)))
-		if (nex >0){
+			if (nex >0){
 			## show max 25 example reads 
-			for (i in 1:nex){
-				## get read ID
-				(gei = ex2$"GeneExon5_GeneExon3"[i])
-				(ngeci = ex2$num_unique_reads[i])
-				readids = unique(lr4$readID[lr4$ge1ge2 == gei])
-				(sample.n = min(10, ngeci, length(readids)))
-				(readid = sample(unique(lr4$readID[lr4$ge1ge2 == gei]), sample.n))
-				writeLines(readid, 'tmp.readid')
-				system('sed -e "s/:umi.*//" -e "s:/1.*::" -e "s:/2.*::" tmp.readid | sort -u > tmp.readid2')
+				for (i in 1:nex){
+					## get read ID
+					(gei = ex2$"GeneExon5_GeneExon3"[i])
+					(ngeci = ex2$num_unique_reads[i])
+					readids = unique(lr4$readID[lr4$ge1ge2 == gei])
+					(sample.n = min(10, ngeci, length(readids)))
+					(readid = sample(unique(lr4$readID[lr4$ge1ge2 == gei]), sample.n))
+					writeLines(readid, 'tmp.readid')
+					system('sed -e "s/:umi.*//" -e "s:/1.*::" -e "s:/2.*::" tmp.readid | sort -u > tmp.readid2')
 
 				## get fa
-				if (file.exists(paste("../../fq.demux/", subii, ".R2.fq", sep=''))){
-#					system(paste("grep -f tmp.readid2 -A1 ../../fq.demux/", subii, ".R2.fq | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
-				} else if (file.exists(paste("../../fq.demux/", subii, ".R2.fq.gz", sep=''))){
-#				system(paste("zcat ../../fq.demux/", subii, ".R2.fq.gz | grep -f tmp.readid2 -A1 | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
-				} else if (file.exists(paste(bam_path, subii, ".consolidated.bam", sep=''))){
-#					system(paste(REPPATH, "/samtools/bin/samtools view ../../bam/", subii
-					system(paste(samtools, " view ", bam_path, subii   ###Modified by Baifeng###
+					if (file.exists(paste("../../fq.demux/", subii, ".R2.fq", sep=''))){
+#						system(paste("grep -f tmp.readid2 -A1 ../../fq.demux/", subii, ".R2.fq | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
+					} else if (file.exists(paste("../../fq.demux/", subii, ".R2.fq.gz", sep=''))){
+#						system(paste("zcat ../../fq.demux/", subii, ".R2.fq.gz | grep -f tmp.readid2 -A1 | sed 's: :/1 :' | sed 's:^@:>:' | grep -v '\\-\\-' > ", subii, '.', gei, ".txt", sep=''))
+					} else if (file.exists(paste(bam_path, subii, ".consolidated.bam", sep=''))){
+#						system(paste(REPPATH, "/samtools/bin/samtools view ../../bam/", subii
+						system(paste(samtools, " view ", bam_path, subii   ###Modified by Baifeng###
 #							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,10 | sed 's/^/>/' | tr '\t' '\n' > ", subii, '.', gei, ".txt", sep=''))
 							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,2,10 > ", subii, '.', gei, ".txt", sep=''))
-					fq2pdf(seq=paste0(subii,".",gei,".txt"),aln="_sa.SMH4sns",nam=paste0(subii,".",gei))
+						fq2png(seq=paste0(subii,".",gei,".txt"),aln="breakpoint.reads",nam=paste0(subii,".",gei))
+					}
+					system('rm tmp.readid*')
 				}
-			system('rm tmp.readid*')
-			}
-	       }
-	}
+	       		}
+		}
 	}
 }
 
 	if (!file.exists(paste(subii, '.brief.summary', sep=''))){
 			file.create(paste(subii, '.brief.summary', sep=''))
-		}
+		
+}
 }

@@ -64,9 +64,5 @@ runSplitFusion <- function (step = c("bam-consolidate", "breakpoint-consolidate"
 		SplitFusion.breakpoint.anno.postscript(runInfo = runInfo)
 	}
 
+        system("rm _*")
 }
-
-#rm _*   ###Modified by Baifeng###
-
-#rm ../_job_.$subii  ###Modified by Baifeng###
-

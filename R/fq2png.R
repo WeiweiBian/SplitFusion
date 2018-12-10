@@ -1,4 +1,4 @@
-fq2pdf <- function(seq,aln,nam){
+fq2png <- function(seq,aln,nam){
   
   library("dplyr")
   library("tidyr")
@@ -71,7 +71,7 @@ fq2pdf <- function(seq,aln,nam){
   #geom_point(aes(y=RD,x=location,fill=part_order),size=3,shape=21,alpha=0.5)+
     ggtitle(title_name)+
     theme(axis.title = element_text(face = "bold"),axis.text = element_text(face = "bold"),panel.grid = element_blank(),panel.background = element_blank())
-  ggsave(g, file=paste0(title_name,".pdf"),height = 15, width = 15)
+  ggsave(g, file=paste0(title_name,".png"),height = 15, width = 15)
 }
 
 

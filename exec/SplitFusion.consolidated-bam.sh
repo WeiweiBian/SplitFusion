@@ -4,6 +4,12 @@ subii=$( pwd | sed "s:.*/::")
 SA_flag=$2
 
 #== consolidated bam ==
+##get threads
+head -n 1 $sampleInfo > _head.1
+        gawk '{for (i=1; i<=NF; i++) {if ($i ~ /cpuBWA/) {print $i,i}}}' _head.1 | sed 's/.* /cpuField=/' > _t.sh
+        . _t.sh
+        cpuBWA=$(grep $subii $sampleInfo | cut -f $cpuField | sed 's: .*::')
+
 if [ ! -s $bam_path/$subii.consolidated.bam ]; then
 
 	#== fasq2bam ==

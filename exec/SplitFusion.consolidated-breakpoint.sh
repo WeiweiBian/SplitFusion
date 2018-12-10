@@ -213,8 +213,8 @@ subii=$( pwd | sed "s:.*/::")
 
 ##====	correct breakpoint for those contain mid
 	cut -f1 _split.mid | sort -u > _mid.id
-	sort -k2,2b _sa.SMH4sn > _sa.SMH4sns
-	join -1 1 -2 2 _mid.id _sa.SMH4sns > split.mid
+	sort -k2,2b _sa.SMH4sn > breakpoint.reads # _sa.SMH4sns
+	join -1 1 -2 2 _mid.id breakpoint.reads > split.mid
 
 	awk '{if ($1==pre1){
 		diff = $5 - pre5;
