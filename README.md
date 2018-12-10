@@ -55,12 +55,12 @@ The dependency data (e.g. in 'data') should contain:
 
 The above files could be updated periodically as a backend supporting database that facilitates automatc filtering and outputing of fusion candidates.
 
-# Example data for testing (https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/)
+# [Example data for testing](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/)
 
 ## Input file
 1.Sample information table:  Sample name (prefixed name in bam file), Cancer type or project name ( not used in script, just for user labeling ), Panel name (prefixed panel name in panel-name.target.genes), cpuBWA number
 
-An example table (table separated) : https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/sampleInfo
+[An example table (table separated)](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/sampleInfo)  :
 
 ```java
 AP7 Sample_ID Panel cpuBWA
@@ -72,7 +72,7 @@ example LungFusion ITFTNA 2
 
 2.Config file: you can set the path and parameters of depended tools in this file.
 
-Example  table: https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/example.runInfo
+[Example  table](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/example.runInfo):
 
 ```java
 ### Input file
@@ -130,7 +130,7 @@ R command line:
 ```
 
 ## Output 
-An example brief output table: (https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/result/example/example.brief.summary)
+[An example brief output table](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/result/example/example.brief.summary):
 
 | AP7         | GeneExon5'---GeneExon3'    | num_unique_reads | frame    | Gene_Exon_cDNA_5'_3'            |
 |:-----------:|:--------------------------:|:----------------:|:--------:|:-------------------------------:|
@@ -139,7 +139,7 @@ An example brief output table: (https://github.com/Zheng-NGS-Lab/SplitFusion/blo
 | A02-P702    | EML4_intronic---ALK_exon20 |               10 | _NA_     | EML4 intronic c.NA .NM_001145076.---ALK exon20 c.3173 .NM_004304. |
 | A02-P702    | EML4_exon4---ALK_exon20    |               64 | in-frame | EML4 exon4 c.468 .NM_001145076.---ALK exon20 c.3171 .NM_004304. |
 
-An example output fastq file for the KIF5B_exon15---RET_exon12 fusion of sample A01-P701 is: (https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/result/example/example.EML4_intron6---ALK_exon20.txt)
+[An example output fastq file for the KIF5B_exon15---RET_exon12 fusion of sample A01-P701 is: ](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/result/example/example.EML4_intron6---ALK_exon20.txt)
 
  >CL100059760L2C005R002_288074
 TTCCCACTTTGGATCCTCCTTTACATCATTATTTCCCACAGCAATTCCTATTTCTGCAAGGTCTTTTAGTAAAGATGC
