@@ -34,7 +34,7 @@
 ## Annotate
     #perl $REPPATH/annovar/table_annovar.pl __breakpoint.for.anno $REPPATH/annovar/humandb/ -buildver hg19 -out __breakpoint.annotated -remove -protocol refGene -operation g -nastring NA
     #Rscript $pipelinePATH/scripts/chr.pos.anno.extraction.R __breakpoint.annotated ## generate .ext0
-    $java -jar $snpEff -canon GRCh37.75 __breakpoint.for.anno > __breakpoint.annotated
+    $java -jar $snpEff -canon $snpEff_ref __breakpoint.for.anno > __breakpoint.annotated  ### Note: annotation result varys with different version of $snpEff_ref
 #    $R -f $SplitFusionPath/R/exon.cds.extraction.R --args __breakpoint.annotated  ###R version###
     $R -e 'library(SplitFusion);exon.cds.extraction(input = "__breakpoint.annotated")'
 
@@ -56,7 +56,7 @@
 
 #    perl $REPPATH/annovar/table_annovar.pl mid.for.anno $REPPATH/annovar/humandb/ -buildver hg19 -out mid.anno -remove -protocol refGene -operation g -nastring NA
 #    Rscript $pipelinePATH/scripts/chr.pos.anno.extraction.R mid.anno ## generate .ext0
-    $java -jar $snpEff -canon GRCh37.75 mid.for.anno > mid.anno
+    $java -jar $snpEff -canon $snpEff_ref mid.for.anno > mid.anno  ### Note: annotation result varys with different version of $snpEff_ref
 #    $R -f $SplitFusionPath/R/exon.cds.extraction.R --args mid.anno  ###R version###
     $R -e 'library(SplitFusion);exon.cds.extraction(input = "mid.anno")'
 
