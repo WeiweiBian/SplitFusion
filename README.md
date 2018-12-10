@@ -165,7 +165,7 @@ GGGAATTCCCACTTTGGATCCTCCTATGTTGGAATTCCCTCGGAAGAACTTGGTTCTTGGAAAAACTCTAAGATCGGA
 
 
 ## Visualization
-[An visualization of example output fastq for the EML4_exon7---ALK_exon20:](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/result/example/example.EML4_intron6---ALK_exon20.png)
+[An visualization of example output fastq for the EML4_intron6---ALK_exon20:](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/result/example/example.EML4_intron6---ALK_exon20.png)
 ![image](https://github.com/Zheng-NGS-Lab/SplitFusion/blob/master/data/example_data/result/example/example.EML4_intron6---ALK_exon20.png)
 
 
