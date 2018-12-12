@@ -398,7 +398,7 @@ if (n.lr3 >0){
 							, ".consolidated.bam | grep -f tmp.readid2 | cut -f1,2,10 > ", subii, '.', gei, ".txt", sep=''))
 						system(paste(samtools, " view ", bam_path, subii   ###Modified by Baifeng###
 #                                                       , ".consolidated.bam | grep -f tmp.readid2 | cut -f1,10 | sed 's/^/>/' | tr '\t' '\n' > ", subii, '.', gei, ".txt", sep=''))
-                                                        , ".consolidated.bam | grep -f tmp.readid2 > ", subii, '.', gei, ".bam", sep=''))
+                                                        , ".consolidated.bam | grep -f tmp.readid2 | ",samtools, " view -T ", hgRef, " -bS - > ", subii, '.', gei, ".bam", sep=''))
 						fq2png(seq=paste0(subii,".",gei,".txt"),aln="breakpoint.reads",nam=paste0(subii,".",gei))
 					}
 					system('rm tmp.readid*')
